@@ -1,6 +1,6 @@
 # Order Management System
-
-An event-driven Order Management System (OMS) built with Apache Kafka and the Saga Pattern.
+> **🍔 Live Demo:** Check out the Consumer tracking interface at [order.karanlab.online](https://order.karanlab.online)
+> **⚙️ Admin Dashboard:** Don't forget to visit the [Admin Dashboard](https://order.karanlab.online/admin) where you can manage incoming orders and take actions like **Prepared** and **Delivered**.
 
 ## Architecture
 
@@ -64,10 +64,6 @@ The application is accessible at `http://localhost:3000`.
 | `GET`  | `/api/orders/:id` | Get order details |
 | `POST` | `/api/orders/:id/cancel` | Cancel an order |
 | `GET`  | `/api/orders/:id/stream` | Stream status updates via SSE |
-
-## Admin Dashboard
-
-The application includes an Admin Dashboard available at `https://order.karanlab.online/admin`. Restaurant partners can use this interface to manage incoming orders and manually transition their status to **Prepared** and **Delivered**.
 
 ## Core Design Principles
 
