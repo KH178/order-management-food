@@ -1,6 +1,6 @@
 # Order Management System
-> **🍔 Live Demo:** Check out the Consumer tracking interface at [order.karanlab.online](https://order.karanlab.online)
-> **⚙️ Admin Dashboard:** Don't forget to visit the [Admin Dashboard](https://order.karanlab.online/admin) where you can manage incoming orders and take actions like **Prepared** and **Delivered**.
+> **Live Demo:** Check out the Consumer tracking interface at [order.karanlab.online](https://order.karanlab.online)
+> **Admin Dashboard:** Don't forget to visit the [Admin Dashboard](https://order.karanlab.online/admin) where you can manage incoming orders and take actions like **Prepared** and **Delivered**.
 
 ## Architecture
 
