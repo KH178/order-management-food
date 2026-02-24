@@ -65,6 +65,10 @@ The application is accessible at `http://localhost:3000`.
 | `POST` | `/api/orders/:id/cancel` | Cancel an order |
 | `GET`  | `/api/orders/:id/stream` | Stream status updates via SSE |
 
+## Admin Dashboard
+
+The application includes an Admin Dashboard available at `https://order.karanlab.online/admin`. Restaurant partners can use this interface to manage incoming orders and manually transition their status to **Prepared** and **Delivered**.
+
 ## Core Design Principles
 
 - **Event-Driven:** The API drops events in the outbox and responds immediately. The web server never talks directly to external downstream systems.
