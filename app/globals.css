@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ─── Design Tokens ─────────────────────────────────── */
+:root {
+  --z-red: #e23744;
+  --z-red-dark: #c0303c;
+  --z-red-light: #ff4f5e;
+  --z-orange: #ef7c00;
+  --z-bg: #1a1a1a;
+  --z-surface: #242424;
+  --z-surface-2: #2e2e2e;
+  --z-border: #3a3a3a;
+  --z-text: #f5f5f5;
+  --z-muted: #a0a0a0;
+  --z-success: #48c479;
+  --z-warning: #ef7c00;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.35);
+}
+
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--z-bg);
+  color: var(--z-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+input, textarea { font-family: inherit; outline: none; }
+img { max-width: 100%; display: block; }
+
+/* ─── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--z-bg); }
+::-webkit-scrollbar-thumb { background: var(--z-border); border-radius: 3px; }
+
+/* ─── Utility ───────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+}
+.badge-green  { background: rgba(72,196,121,.15); color: var(--z-success); }
+.badge-red    { background: rgba(226,55,68,.15);  color: var(--z-red); }
+.badge-orange { background: rgba(239,124,0,.15);  color: var(--z-orange); }
+.badge-gray   { background: rgba(160,160,160,.1); color: var(--z-muted); }
+
+/* ─── Animations ────────────────────────────────────── */
+@keyframes fadeIn   { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes shimmer  { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes pulse    { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes spin     { to { transform: rotate(360deg); } }
+@keyframes slideUp  { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes progress { from { width: 0 } }
+
+.fade-in  { animation: fadeIn  .35s ease both; }
+.slide-up { animation: slideUp .3s ease both; }
+
+/* ─── Skeleton ──────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--z-surface) 25%, var(--z-surface-2) 50%, var(--z-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Button ────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
+  transition: all .18s ease; white-space: nowrap;
+}
+.btn-primary {
+  background: var(--z-red); color: #fff;
+  box-shadow: 0 2px 12px rgba(226,55,68,.35);
+}
+.btn-primary:hover { background: var(--z-red-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(226,55,68,.45); }
+.btn-primary:active { transform: none; }
+.btn-ghost  {
+  background: transparent; color: var(--z-text); border: 1.5px solid var(--z-border);
+}
+.btn-ghost:hover { border-color: var(--z-red); color: var(--z-red); background: rgba(226,55,68,.06); }
+.btn-icon {
+  width: 36px; height: 36px; padding: 0; border-radius: 50%;
+  background: var(--z-surface-2); color: var(--z-text); font-size: 16px;
+  transition: all .18s;
+}
+.btn-icon:hover { background: var(--z-red); color: #fff; }
+
+/* ─── Card ──────────────────────────────────────────── */
+.card {
+  background: var(--z-surface);
+  border: 1px solid var(--z-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--z-red); }
+
+/* ─── Input ─────────────────────────────────────────── */
+.input {
+  background: var(--z-surface-2); border: 1.5px solid var(--z-border);
+  color: var(--z-text); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 14px; width: 100%;
+  transition: border-color .18s;
+}
+.input:focus { border-color: var(--z-red); }
+.input::placeholder { color: var(--z-muted); }
+
+/* ─── Chip ──────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px;
+  background: var(--z-surface-2); border: 1.5px solid var(--z-border);
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
+}
+.chip:hover, .chip.active {
+  background: rgba(226,55,68,.12); border-color: var(--z-red); color: var(--z-red);
+}
+
+/* ─── Spinner ───────────────────────────────────────── */
+.spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid var(--z-border);
+  border-top-color: var(--z-red);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}

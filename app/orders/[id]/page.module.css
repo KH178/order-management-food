@@ -1,0 +1,108 @@
+.root { min-height: 100vh; background: var(--z-bg); }
+
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(26,26,26,.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--z-border); height: 60px;
+}
+.headerInner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 100%;
+}
+.logo { font-size: 20px; font-weight: 800; color: var(--z-red); }
+.back { font-size: 13px; color: var(--z-muted); transition: color .15s; }
+.back:hover { color: var(--z-text); }
+
+.page { padding: 32px 0 60px; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+/* Order ID Bar */
+.orderIdBar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--z-surface); border: 1px solid var(--z-border);
+  border-radius: var(--radius); padding: 14px 20px;
+}
+.orderLabel { font-size: 11px; color: var(--z-muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 2px; }
+.orderId { font-size: 13px; font-weight: 600; font-family: monospace; }
+.connBadge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--z-muted); }
+.connDotGreen, .connDotGray { width: 8px; height: 8px; border-radius: 50%; }
+.connDotGreen { background: var(--z-success); animation: pulse 2s infinite; }
+.connDotGray  { background: var(--z-muted); }
+
+/* Status Hero */
+.statusHero {
+  background: linear-gradient(135deg, #1e0a1a, #1a1a2e);
+  border: 1px solid var(--z-border); border-radius: var(--radius);
+  padding: 32px 28px; display: flex; align-items: center; gap: 24px;
+  animation: fadeIn .4s ease;
+}
+.statusEmojiWrap { position: relative; flex-shrink: 0; }
+.statusEmoji { font-size: 56px; display: block; position: relative; z-index: 1; }
+.pulse { animation: pulse 2.5s ease-in-out infinite; }
+.statusRing {
+  position: absolute; inset: -8px; border-radius: 50%;
+  border: 2px solid var(--z-red); opacity: .4;
+  animation: spin 3s linear infinite;
+}
+.statusLabel { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.statusDesc { font-size: 14px; color: var(--z-muted); margin-bottom: 10px; }
+.eta { font-size: 14px; color: var(--z-orange); }
+
+/* Stepper */
+.stepperCard, .activityCard {
+  background: var(--z-surface); border: 1px solid var(--z-border);
+  border-radius: var(--radius); padding: 24px;
+}
+.stepperTitle { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+
+.stepper { display: flex; flex-direction: column; }
+.step { display: flex; gap: 16px; }
+.stepLeft { display: flex; flex-direction: column; align-items: center; }
+.stepDot {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; transition: all .3s;
+  border: 2px solid var(--z-border); background: var(--z-surface-2);
+  color: var(--z-muted);
+}
+.dot_done   { background: var(--z-success); border-color: var(--z-success); color: #fff; font-size: 16px; font-weight: 700; }
+.dot_active { background: var(--z-red); border-color: var(--z-red); color: #fff; animation: pulse 2s infinite; }
+.dot_pending { opacity: .45; }
+
+.stepLine {
+  width: 2px; flex: 1; min-height: 24px;
+  background: var(--z-border); margin: 4px 0;
+  transition: background .4s;
+}
+.stepLineDone { background: var(--z-success); }
+
+.stepContent { flex: 1; padding: 6px 0 20px; }
+.stepLabel { font-size: 14px; font-weight: 600; color: var(--z-muted); }
+.stepLabelActive { color: var(--z-text) !important; }
+.stepDesc { font-size: 12px; color: var(--z-muted); margin-top: 2px; }
+
+/* Activity */
+.activity { display: flex; flex-direction: column; gap: 10px; }
+.activityItem { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.activityTime { color: var(--z-muted); min-width: 70px; font-size: 12px; }
+.activityStatus { font-weight: 600; text-transform: capitalize; }
+
+/* Cancelled */
+.cancelledCard {
+  background: var(--z-surface); border: 1px solid var(--z-border);
+  border-radius: var(--radius); padding: 48px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.cancelledCard h2 { font-size: 22px; font-weight: 700; }
+.cancelledCard p  { color: var(--z-muted); max-width: 340px; font-size: 14px; }
+
+/* Delivered CTA */
+.deliveredCta {
+  background: linear-gradient(135deg, rgba(72,196,121,.08), rgba(72,196,121,.02));
+  border: 1px solid rgba(72,196,121,.25); border-radius: var(--radius);
+  padding: 32px; text-align: center; display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+}
+.deliveredCta h3 { font-size: 18px; font-weight: 700; }
+.stars { display: flex; gap: 8px; }
+.star { font-size: 28px; color: #ffd700; cursor: pointer; transition: transform .15s; }
+.star:hover { transform: scale(1.3); }

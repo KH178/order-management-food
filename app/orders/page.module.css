@@ -1,0 +1,42 @@
+.root { min-height: 100vh; }
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(26,26,26,.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--z-border); height: 60px;
+}
+.headerInner { display: flex; align-items: center; gap: 20px; height: 100%; }
+.logo { font-size: 20px; font-weight: 800; color: var(--z-red); }
+.pageTitle { font-size: 16px; font-weight: 700; }
+
+.page { padding: 32px 0 60px; max-width: 720px; margin: 0 auto; }
+
+.loadingWrap { display: flex; flex-direction: column; gap: 12px; }
+.skeletonCard { height: 90px; border-radius: var(--radius); }
+
+.empty {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 80px 20px; text-align: center;
+}
+.empty h2 { font-size: 22px; font-weight: 700; }
+.empty p  { color: var(--z-muted); font-size: 14px; margin-bottom: 8px; }
+
+.orderList { display: flex; flex-direction: column; gap: 12px; }
+
+.orderCard {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--z-surface); border: 1px solid var(--z-border);
+  border-radius: var(--radius); padding: 18px 20px;
+  transition: border-color .18s, transform .18s;
+  animation: fadeIn .35s ease both; cursor: pointer;
+}
+.orderCard:hover { border-color: var(--z-red); transform: translateX(4px); }
+
+.orderTop { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+.orderIcon { font-size: 32px; flex-shrink: 0; }
+.orderInfo { flex: 1; min-width: 0; }
+.orderCardHeader { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+.orderCardId { font-size: 14px; font-weight: 700; letter-spacing: .3px; }
+.orderItems { font-size: 13px; color: var(--z-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.orderMeta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--z-muted); }
+.metaDot { width: 3px; height: 3px; background: var(--z-border); border-radius: 50%; flex-shrink: 0; }
+.orderArrow { color: var(--z-muted); font-size: 18px; flex-shrink: 0; }

@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────
+// WRITE MODEL
+// ─────────────────────────────────────────────────────────
+
+model Order {
+  id          String      @id @default(uuid())
+  customerId  String
+  status      OrderStatus @default(PENDING)
+  totalAmount Float       @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  items       OrderItem[]
+  events      OrderEvent[]
+  outbox      Outbox[]
+  saga        SagaInstance?
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@map("order_items")
+}
+
+// ─────────────────────────────────────────────────────────
+// EVENT STORE (Immutable Append-Only)
+// ─────────────────────────────────────────────────────────
+
+model OrderEvent {
+  id            String   @id @default(uuid())
+  orderId       String
+  correlationId String
+  type          String
+  payload       Json
+  version       Int
+  createdAt     DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@index([orderId])
+  @@map("order_events")
+}
+
+// ─────────────────────────────────────────────────────────
+// OUTBOX (CDC Pattern)
+// ─────────────────────────────────────────────────────────
+
+model Outbox {
+  id          String    @id @default(uuid())
+  orderId     String
+  eventType   String
+  payload     Json
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@index([published, createdAt])
+  @@map("outbox")
+}
+
+// ─────────────────────────────────────────────────────────
+// READ MODEL (CQRS Projections — denormalized, no joins)
+// ─────────────────────────────────────────────────────────
+
+model OrderRead {
+  id           String      @id
+  customerId   String
+  status       OrderStatus
+  totalAmount  Float
+  itemCount    Int
+  itemsSummary Json        // precomputed items snapshot
+  createdAt    DateTime
+  updatedAt    DateTime
+
+  @@index([status])
+  @@index([customerId])
+  @@map("orders_read")
+}
+
+model OrderItemRead {
+  id        String @id
+  orderId   String
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+  subtotal  Float
+
+  @@index([orderId])
+  @@map("order_items_read")
+}
+
+// ─────────────────────────────────────────────────────────
+// SAGA STATE
+// ─────────────────────────────────────────────────────────
+
+model SagaInstance {
+  id          String     @id @default(uuid())
+  orderId     String     @unique
+  currentStep SagaStep   @default(PAYMENT_PENDING)
+  status      SagaStatus @default(RUNNING)
+  lastEventId String?
+  metadata    Json?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@map("saga_instances")
+}
+
+// ─────────────────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────────────────
+
+enum OrderStatus {
+  PENDING
+  PAYMENT_PROCESSING
+  PAYMENT_CONFIRMED
+  PREPARING
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+enum SagaStep {
+  PAYMENT_PENDING
+  PAYMENT_PROCESSING
+  INVENTORY_PENDING
+  INVENTORY_RESERVED
+  PREPARING
+  COMPLETED
+  COMPENSATING
+  FAILED
+}
+
+enum SagaStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+}
